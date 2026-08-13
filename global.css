@@ -1,0 +1,346 @@
+/* ==========================================================================
+   0. CUSTOM FONT DECLARATIONS
+   ========================================================================== */
+
+/* Primary Font: Space Grotesk */
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/assets/fonts/Space_Grotesk/static/SpaceGrotesk-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/assets/fonts/Space_Grotesk/static/SpaceGrotesk-Bold.ttf') format('ttf');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Secondary Font: JetBrains Mono */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/assets/fonts/JetBrains_Mono,Space_Grotesk/JetBrains_Mono/static/JetBrainsMono-Regular.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   1. DESIGN SYSTEM & CSS VARIABLES
+   ========================================================================== */
+:root {
+    --bg-dark: #000000;
+    --bg-gradient: radial-gradient(circle at top left, rgba(0, 133, 102, 0.8) 0%, rgba(0, 0, 0, 0.96) 35%, rgba(0, 0, 0, 1) 100%);
+    --accent-color: #4fffd2;
+    --accent-glow: rgba(79, 255, 210, 0.35);
+    --accent-hover: #00dac6;
+    --glass-bg: rgba(20, 20, 20, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
+
+    /* 2-Font Setup */
+    --font-primary: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --radius-card: 16px;
+    --radius-btn: 30px;
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Utility Classes for Developer Monospace Details */
+.font-mono,
+code,
+pre,
+.tech-tag,
+.project-number,
+.badge {
+  font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   2. GLOBAL RESETS & BASE STYLES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: #0d0e15;
+    min-height: 100%;
+    overscroll-behavior-y: none;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: #0d0e15;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.7;
+    padding-top: 90px;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 4px;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* ==========================================================================
+   TOPBAR COMPONENT STYLES
+   ========================================================================== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: var(--glass-bg, rgba(20, 20, 20, 0.65));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
+  padding: 15px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: var(--transition-smooth, all 0.35s ease);
+  box-sizing: border-box;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px var(--accent-glow, rgba(79, 255, 210, 0.35)));
+  transition: transform var(--transition-smooth, all 0.35s ease);
+}
+
+.logo:hover img {
+  transform: rotate(360deg);
+}
+
+.logo-text-link {
+  text-decoration: none;
+  color: var(--text-main, #ffffff);
+}
+
+.logo-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--accent-color, #4fffd2);
+  text-shadow: 0 0 12px var(--accent-glow, rgba(79, 255, 210, 0.35));
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-links a {
+  color: var(--text-muted, #a0a0a0);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: var(--transition-fast, all 0.2s ease);
+  position: relative;
+  padding: 4px 0;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--accent-color, #4fffd2);
+  text-shadow: 0 0 8px var(--accent-glow, rgba(79, 255, 210, 0.35));
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-color, #4fffd2);
+  box-shadow: 0 0 8px var(--accent-color, #4fffd2);
+  transition: var(--transition-smooth, all 0.35s ease);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.contact-button {
+  background: transparent;
+  color: var(--accent-color, #4fffd2);
+  border: 1px solid var(--accent-color, #4fffd2);
+  padding: 9px 20px;
+  border-radius: var(--radius-btn, 30px);
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: var(--transition-smooth, all 0.35s ease);
+}
+
+.contact-button:hover {
+  background: var(--accent-color, #4fffd2);
+  color: var(--bg-dark, #0a0a0a);
+  box-shadow: 0 0 18px var(--accent-glow, rgba(79, 255, 210, 0.35));
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   TOPBAR RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 4%;
+  }
+
+  .topbar {
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-links {
+    gap: 16px;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+  }
+
+  .contact-button {
+    padding: 6px 14px;
+    font-size: 0.75rem;
+  }
+}
+/* ==========================================================================
+   8. FOOTER SECTION
+   ========================================================================== */
+.footer {
+  background: rgba(5, 5, 5, 0.95);
+  border-top: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
+  padding: 40px 8% 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  margin-top: 60px;
+  box-sizing: border-box;
+}
+
+.footer-logo img {
+  width: 45px;
+  height: auto;
+  object-fit: contain;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a,
+.footer-secret-links a {
+  color: var(--text-muted, #a0a0a0);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: var(--transition-fast, all 0.2s ease);
+}
+
+.footer-links a:hover,
+.footer-secret-links a:hover {
+  color: var(--accent-color, #4fffd2);
+}
+
+.footer-right p {
+  font-size: 0.82rem;
+  color: var(--text-muted, #a0a0a0);
+  margin: 0;
+}
+
+.footer-secret-links {
+  display: flex;
+  gap: 15px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   FOOTER RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 768px) {
+  .footer {
+    padding: 30px 5% 20px;
+    gap: 14px;
+    margin-top: 40px;
+  }
+
+  .footer-logo img {
+    width: 36px;
+  }
+
+  .footer-links {
+    gap: 12px;
+  }
+
+  .footer-links a {
+    font-size: 0.78rem;
+  }
+
+  .footer-right p {
+    font-size: 0.72rem;
+  }
+
+  .footer-secret-links {
+    gap: 10px;
+    font-size: 0.7rem;
+  }
+
+  .footer-secret-links a {
+    font-size: 0.7rem;
+  }
+}
